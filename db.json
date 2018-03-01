@@ -1,0 +1,31 @@
+{
+  "players": [{
+    "id": 0,
+    "name": "Hector",
+    "surname": "Calle Mancho",
+    "birth": "2007-02-07",
+    "comments": [],
+    "media": [],
+    "teams": [{
+      "seasonId": 0,
+      "teamId": 0
+    }]
+  }],
+  "teams": [{
+    "id": 0,
+    "name": "Colegio Virgen de Europa",
+    "acronym": "CVE",
+    "location": ""
+  }],
+  "seasons": [{
+    "id": 0,
+    "name": "2017-2018"
+  }],
+  "trainings": [{
+    "seasonId": 0,
+    "playerId": 0,
+    "data": {
+
+    }
+  }]
+}
