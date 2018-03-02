@@ -1,4 +1,4 @@
-const PORT = 3004;
+const PORT = 4000;
 
 // server.js
 const jsonServer = require('json-server')

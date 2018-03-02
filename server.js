@@ -1,6 +1,7 @@
 const express =require('express');
 const expressGraphQL =require('express-graphql');
 const schema = require('./schema');
+const db = require('./server-db');
 
 const app = express();
 
@@ -10,5 +11,5 @@ app.use('/graphql', expressGraphQL({
 }));
 
 app.listen(3000, () => {
-  console.log('🤖 Express server listening @ http://localhost:3000');
+  console.log('🤖  Express server listening @ http://localhost:3000');
 });

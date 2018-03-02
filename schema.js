@@ -1,3 +1,4 @@
+const axios = require('axios');
 const graphql = require('graphql');
 
 const {
@@ -45,7 +46,19 @@ const PlayerType = new GraphQLObjectType({
     birth: { type: GraphQLString },
     comments: { type: new GraphQLList(CommentType) },
     media: { type: new GraphQLList(MediaType) },
-    teams: { type: new GraphQLList(TeamType) },
+    teams: {
+      type: new GraphQLList(TeamType),
+      resolve(parentValue, args) {
+        const requests = parentValue.teams.map(t => (
+          axios.get(`http://localhost:4000/teams/${t.teamId}`)
+        ));
+        return Promise
+          .all(requests)
+          .then(values => {
+            return values.map(v => (v.data));
+          });
+      },
+    },
   }
 });
 
@@ -56,7 +69,48 @@ const RootQueryPlayers = new GraphQLObjectType({
       type: PlayerType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-
+        return axios.get(`http://localhost:4000/players/${args.id}`)
+          .then(response => (response.data))
+      }
+    },
+    season: {
+      type: SeasonType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:4000/seasons/${args.id}`)
+          .then(response => (response.data))
+      }
+    },
+    team: {
+      type: TeamType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:4000/teams/${args.id}`)
+          .then(response => (response.data))
+      }
+    },
+    season: {
+      type: SeasonType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:4000/seasons/${args.id}`)
+          .then(response => (response.data))
+      }
+    },
+    comments: {
+      type: CommentType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:4000/comments/${args.id}`)
+          .then(response => (response.data))
+      }
+    },
+    media: {
+      type: MediaType,
+      args: { id: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:4000/media/${args.id}`)
+          .then(response => (response.data))
       }
     }
   }
